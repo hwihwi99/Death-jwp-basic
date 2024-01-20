@@ -1,4 +1,4 @@
-package next;
+package next.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 public class HelloWorldServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        PrintWriter out = resp.getWriter();
-        out.print("Hello World!");
+        req.getRequestDispatcher("/index.jsp").forward(req,resp);
     }
 }

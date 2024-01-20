@@ -29,11 +29,24 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 			<scope>provided</scope>
-		</dependency>		
+		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>jakarta.el</groupId>
+			<artifactId>jakarta.el-api</artifactId>
+			<version>5.0.1</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>jakarta.servlet.jsp.jstl</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+			<version>3.0.0</version>
 		</dependency>
 
 		<dependency>
@@ -139,6 +152,9 @@
 			<artifactId>tomcat-jsp-api</artifactId>
 			<version>${tomcat.version}</version>
 		</dependency>
+
+
+
 	</dependencies>
 	<repositories>
 		<repository>
