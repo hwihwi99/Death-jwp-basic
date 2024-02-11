@@ -12,8 +12,8 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
 import core.jdbc.ConnectionManager;
 
-@WebListener
-public class ContextLoaderListener implements ServletContextListener {
+@WebListener // 이 어노테이션이 서블릿 컨테이너를 시작하는 과정에서 contextInitialized 위 함수를 호출시킨다.
+public class ContextLoaderListener implements ServletContextListener { // ServletContextListener 자바에서 제공하는 구현체
     private static final Logger logger = LoggerFactory.getLogger(ContextLoaderListener.class);
 
     @Override

@@ -17,7 +17,7 @@ import java.io.IOException;
 @WebServlet("/user/login")
 public class LoginUserServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static final Logger log = LoggerFactory.getLogger(CreateUserServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(CreateUserController.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
