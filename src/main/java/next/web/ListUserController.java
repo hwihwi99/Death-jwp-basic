@@ -24,11 +24,7 @@ public class ListUserController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserDao userDao = new UserDao();
 
-        try{
-            req.setAttribute("users", userDao.findAll());
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-        }
+        req.setAttribute("users", userDao.findAll());
 
         RequestDispatcher rd = req.getRequestDispatcher("/user/list.jsp");
         rd.forward(req, resp);

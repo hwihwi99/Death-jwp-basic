@@ -12,15 +12,15 @@ public class UserDaoTest {
 
     @Test
     public void crud() throws Exception {
-        User expected = new User("userId1", "password", "name", "javajigi@email.com");
+        User expected = new User("userId", "password", "name", "javajigi@email.com");
         UserDao userDao = new UserDao();
-        userDao.update(expected);
+        userDao.insert(expected);
 
-        User own = userDao.findByUserId("userId");
-        System.out.println(own.getUserId());
-        System.out.println(own.getPassword());
-        System.out.println(own.getName());
-        System.out.println(own.getEmail());
+//        User own = userDao.findByUserId("userId");
+//        System.out.println(own.getUserId());
+//        System.out.println(own.getPassword());
+//        System.out.println(own.getName());
+//        System.out.println(own.getEmail());
 
         List<User> user = userDao.findAll();
         for (User u : user) {

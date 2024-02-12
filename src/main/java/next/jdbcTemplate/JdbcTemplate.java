@@ -1,6 +1,7 @@
 package next.jdbcTemplate;
 
 import core.jdbc.ConnectionManager;
+import next.exception.DataAccessException;
 import next.model.User;
 
 import java.sql.Connection;
@@ -12,65 +13,48 @@ import java.util.List;
 
 public class JdbcTemplate {
 
-    public void update(String sql, PreparedStatementSetter pss) throws SQLException {
-        Connection con = null;
-        PreparedStatement pstmt = null;
+    public void update(String sql, PreparedStatementSetter pss) throws DataAccessException {
 
-        try {
-            con =  ConnectionManager.getConnection();
-            pstmt = con.prepareStatement(sql);
+        try (Connection con =  ConnectionManager.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql);){
+
             pss.setValues(pstmt);
-
             pstmt.executeUpdate();
-        }finally {
-            if (pstmt != null) {
-                pstmt.close();
-            }
-            if (con != null) {
-                con.close();
-            }
+
+        } catch (SQLException e) {
+            throw new DataAccessException(e);
         }
     }
 
     @SuppressWarnings("rawtypes")
-    public List query(String sql, PreparedStatementSetter pss, RowMapper rw) throws SQLException {
-        Connection con = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
+    public <T> List<T> query(String sql, PreparedStatementSetter pss, RowMapper<T> rw) throws DataAccessException {
 
-        try {
-            con =  ConnectionManager.getConnection();
-            pstmt = con.prepareStatement(sql);
+        try (Connection con =  ConnectionManager.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql);){
+
             pss.setValues(pstmt);
+            ResultSet rs =  pstmt.executeQuery();
 
-            rs = pstmt.executeQuery();
-
-            List<Object> objectList = new ArrayList<>();
+            List<T> objectList = new ArrayList<T>();
             while (rs.next()) {
                 objectList.add(rw.mapRow(rs));
             }
 
             return objectList;
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (pstmt != null) {
-                pstmt.close();
-            }
-            if (con != null) {
-                con.close();
-            }
+        } catch (SQLException e) {
+            throw new DataAccessException(e);
         }
     }
 
     @SuppressWarnings("rawtypes")
-    public Object queryForObject(String sql,PreparedStatementSetter pss, RowMapper rw) throws SQLException {
-        List result = query(sql,pss,rw);
+    public <T> T queryForObject(String sql,PreparedStatementSetter pss, RowMapper<T> rw) throws DataAccessException {
+        List<T> result = query(sql,pss,rw);
         if(result.isEmpty()) {
             return null;
         }
         return  result.get(0);
     }
+
+
 
 }

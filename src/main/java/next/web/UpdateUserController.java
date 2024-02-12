@@ -32,11 +32,7 @@ public class UpdateUserController extends HttpServlet {
                 req.getParameter("email"));
 
         UserDao userdao = new UserDao();
-        try{
-            userdao.update(user);
-        }catch(SQLException e){
-            log.error(e.getMessage());
-        }
+        userdao.update(user);
         log.debug("user : {}", user);
         resp.sendRedirect("/user/list");
     }

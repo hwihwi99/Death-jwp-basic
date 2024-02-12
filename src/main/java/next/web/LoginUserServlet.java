@@ -1,6 +1,7 @@
 package next.web;
 
 import core.db.DataBase;
+import next.dao.UserDao;
 import next.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,8 @@ public class LoginUserServlet extends HttpServlet {
         String userId = req.getParameter("userId");
         String password = req.getParameter("password");
 
-        User targetUser = DataBase.findUserById(userId);
+        UserDao userDao = new UserDao();
+        User targetUser = userDao.findByUserId(userId);
         if(targetUser != null && targetUser.getPassword().equals(password)) {
             HttpSession session = req.getSession();
             session.setAttribute("user",targetUser);

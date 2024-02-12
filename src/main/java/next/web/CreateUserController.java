@@ -35,11 +35,7 @@ public class CreateUserController extends HttpServlet {
                 req.getParameter("email"));
 
         UserDao userDao = new UserDao();
-        try {
-            userDao.insert(user);
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-        }
+        userDao.insert(user);
         log.debug("user : {}", user);
         resp.sendRedirect("/user/login.jsp");
     }
