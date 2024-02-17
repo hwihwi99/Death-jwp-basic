@@ -14,17 +14,17 @@ public class UserDao {
     public void insert(User user) {
         JdbcTemplate insertJdbcTemplate = new JdbcTemplate();
 
-        PreparedStatementSetter pss = new PreparedStatementSetter() {
-            @Override
-            public void setValues(PreparedStatement pstmt) throws SQLException {
-                pstmt.setString(1, user.getUserId());
-                pstmt.setString(2, user.getPassword());
-                pstmt.setString(3, user.getName());
-                pstmt.setString(4, user.getEmail());
-            }
-        };
+//        PreparedStatementSetter pss = new PreparedStatementSetter() {
+//            @Override
+//            public void setValues(PreparedStatement pstmt) throws SQLException {
+//                pstmt.setString(1, user.getUserId());
+//                pstmt.setString(2, user.getPassword());
+//                pstmt.setString(3, user.getName());
+//                pstmt.setString(4, user.getEmail());
+//            }
+//        };
         String sql = "INSERT INTO USERS VALUES (?, ?, ?, ?)";
-        insertJdbcTemplate.update(sql, pss);
+        insertJdbcTemplate.update(sql, user.getUserId(), user.getPassword(), user.getName(), user.getEmail());
     }
 
 
